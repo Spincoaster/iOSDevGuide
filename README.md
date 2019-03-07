@@ -17,26 +17,26 @@ iOS Development Guide
 - 非同期処理はコールバックのネストが深くなってきたりある程度複雑になってきたら、Promise相当のライブラリを使う。
   - おすすめ: ReactiveSwift
 - iOSアプリケーションは複雑になりがちなので、DDDやClean architectureを参考にして、早い段階で、レイヤーに分けておく。特に、ViewやViewControllerで多くのことをしないようにする。
-- UIViewControllerについて
-
 - フォルダ構成例
   - Scene ... 画面ごとにさらにフォルダを作りStoryboardとViewControllerとそれに付随するファイルを格納
   - Model ... ドメインロジックのためのstruct, enum を定義
   - View ... 各Sceneで使われる横断的なカスタムView・TableViewCellなどを定義
   - API ... APIクライアント
-  - Data ... ローカルに保存する永続化データ
+  - Data ... ローカルに保存する永続化データ. CoreDataやRealmのクラスなどもここに入れる
   - Util ... FoundationやUIKitのextensionや便利メソッドなどを定義
-
+- 例外処理は、すぐに握り潰すことはせずに必ずViewControllerなどのUIレイヤーまで伝搬させて適切にユーザに通知すること。また、色々なエラーが起こり得る場合はフレームワークのエラーオブジェクトをそのままの利用せずに、それらをラップしたenumを定義すると、エラーを処理する部分を１箇所にまとめて簡潔にできるケースが多い。
 
 UI設計について
 --------------------
 
 - コードでレイアウトせず、Storyboardを使う
+  - AutoLayoutの制約を矛盾なく行うのに、Storyboardのバリデーションなしで行うのは難しいため（実行しないと矛盾に気づけない)
 - Storyboardはできる限り分割する
   - １Storyboard １画面が原則で、Navigation ControllerやContainerViweなどの複合画面用のパーツや補助的なパーツのみ含めても良い
   - 理由
     - コンフリクトを避けられる
     - Storyboardの編集が重くなるのを避けられる
+    - わかりやすい
 - 複数のStoryboardで共通されるパーツはカスタムViewとして実装する。その際IBDesignableなViewとして実装すルト良い。しかし、Storyboardの編集が重くなりすぎる場合は、しなくても良い。
 - カスタムViewを実装する際もxibファイルを作って、グラフィカルに編集できるようにすると良い。また、イベント指定はprotocolを定義してdelegateを経由すると良い。
 
@@ -63,5 +63,6 @@ Swiftは静的型付け言語でコンパイラの機能が強力なので、で
 
 - force unwrap `!`は使わない。if letやguard letを使う
 - `try!`は使わない
-- classよりもstruct, StringやIntよりenumを使う
 - if よりもswitch
+- 可能であればimmutableなデータ構造を使う。classよりもstruct、enumを使う
+- StringやIntは直接使わずそれをwrapしたenumを使うとコードの意図がわかりやすくなることがあるので、利用を検討すること
