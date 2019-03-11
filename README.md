@@ -66,3 +66,6 @@ Swiftは静的型付け言語でコンパイラの機能が強力なので、で
 - if よりもswitch
 - 可能であればimmutableなデータ構造を使う。classよりもstruct、enumを使う
 - StringやIntは直接使わずそれをwrapしたenumを使うとコードの意図がわかりやすくなることがあるので、利用を検討すること
+- String Interpolationを使う
+  - good: `"回答：\(question.answersCount)"`
+  - bad: `"回答：" + question.answersCount`
