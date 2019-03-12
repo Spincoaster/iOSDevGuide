@@ -37,7 +37,7 @@ UI設計について
     - コンフリクトを避けられる
     - Storyboardの編集が重くなるのを避けられる
     - わかりやすい
-- 複数のStoryboardで共通されるパーツはカスタムViewとして実装する。その際IBDesignableなViewとして実装すルト良い。しかし、Storyboardの編集が重くなりすぎる場合は、しなくても良い。
+- 複数のStoryboardで共通されるパーツはカスタムViewとして実装する。その際IBDesignableなViewとして実装すると良い。しかし、Storyboardの編集が重くなりすぎる場合は、しなくても良い。
 - カスタムViewを実装する際もxibファイルを作って、グラフィカルに編集できるようにすると良い。また、イベント指定はprotocolを定義してdelegateを経由すると良い。
 
 
