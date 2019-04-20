@@ -69,3 +69,8 @@ Swiftは静的型付け言語でコンパイラの機能が強力なので、で
 - String Interpolationを使う
   - good: `"回答：\(question.answersCount)"`
   - bad: `"回答：" + question.answersCount`
+
+### 画像について
+
+ figmaやsketchなどベクターとしてデザインされているものは、PDFとして書き出してImage assetに取り込むのが良い。
+ Resizingの「Preserve Vector Data」にチェックを入れて、Scalesを「Single Scale」にする
